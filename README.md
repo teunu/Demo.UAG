@@ -1,5 +1,5 @@
 # UAG Demo
-This repository is home to open sourced demo "Unitled Adventure Game". This project was worked on as a challenge allowing me 16 hours in one week to redo and port an old js web project into Unity. All work was done by me in those 16 hours, including sprite work, programming, animation, and sound. This is barring the excellent music "The Leap" created by Denis Borodin for this project.
+This repository is home to open sourced demo "Untitled Adventure Game". This project was worked on as a challenge allowing me 16 hours in one week to redo and port an old js web project into Unity. All work was done by me in those 16 hours, including sprite work, programming, animation, and sound. This is barring the excellent music "The Leap" created by Denis Borodin for this project.
 
 ## Sharing
 I've commited to sharing this project and its source code as aid to understanding workflow and architecture. I use this regarding students, clients, and potential employers. Besides it's intent as showcase material, I invite everyone to freely explore for their own studies and goals. For this reason, it has the MIT liscence.
