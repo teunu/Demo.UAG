@@ -1,5 +1,6 @@
 # Untitled Adventure Game | Demo
-This repository is home to open sourced demo "Untitled Adventure Game". This project was worked on as a challenge allowing me 16 hours in one week to redo and port an old js web project into Unity. All work was done by me in those 16 hours, including sprite work, programming, animation, and sound. This is barring the excellent music "The Leap" created by Denis Borodin for this project.
+This repository is home to open sourced demo "Untitled Adventure Game". 
+This project was worked on as a challenge allowing me 16 hours in one week to redo and port <a href="https://teunu.com/uag">an old js web project</a> into Unity. All work was done by me in those 16 hours, including sprite work, programming, animation, and sound. This is barring the excellent music "The Leap" created by Denis Borodin for this project.
 
 You can download <a href="https://github.com/teunu/Demo.UAG/releases/tag/VD1.0">The Demo</a> and each version's source code from given page.
 
