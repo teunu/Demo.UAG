@@ -35,14 +35,14 @@ public class PlayerVisual : MonoBehaviour
     {
         if (hurt) { return; }
 
-        if (rb.velocity.x < -0.1) { transform.localScale = new Vector2(-1, 1); }
-        else if (rb.velocity.x > 0.1) { transform.localScale = new Vector2(1, 1); }
+        if (rb.linearVelocity.x < -0.1) { transform.localScale = new Vector2(-1, 1); }
+        else if (rb.linearVelocity.x > 0.1) { transform.localScale = new Vector2(1, 1); }
 
         animator.SetBool("freefall", controller.freefall);
         animator.SetBool("grounded", controller.grounded);
         animator.SetBool("crouching", controller.state == PlayerController.LocomotionStates.crouch);
-        animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
-        animator.SetFloat("vertical", rb.velocity.y);
+        animator.SetFloat("horizontal", Mathf.Abs(rb.linearVelocity.x));
+        animator.SetFloat("vertical", rb.linearVelocity.y);
     }
 
     void GetHurt() { TriggerHurt(); }

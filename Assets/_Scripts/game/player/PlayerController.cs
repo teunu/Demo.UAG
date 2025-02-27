@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         state = grounded ? LocomotionStates.normal : LocomotionStates.air;
         grounded = sensor_ground.IsTouchingLayers(LayerMask.GetMask("Static World"));
 
-        if (!grounded && body.velocity.y < -12)
+        if (!grounded && body.linearVelocity.y < -12)
             freefall = true;
         else if (freefall)
             FreefallImpact();
@@ -118,13 +118,13 @@ public class PlayerController : MonoBehaviour
 
         body.AddForce(new Vector2(input.move.x * moveforce, 0));
 
-        if (body.velocity.x > max_speed)
+        if (body.linearVelocity.x > max_speed)
         {
-            body.velocity = new Vector2(max_speed, body.velocity.y);
+            body.linearVelocity = new Vector2(max_speed, body.linearVelocity.y);
         }
-        else if (body.velocity.x < -max_speed)
+        else if (body.linearVelocity.x < -max_speed)
         {
-            body.velocity = new Vector2(-max_speed, body.velocity.y);
+            body.linearVelocity = new Vector2(-max_speed, body.linearVelocity.y);
         }
     }
 
@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
         OnJump?.Invoke();
 
         //Start off with a little power
-        body.velocity = new Vector2(body.velocity.x, jump_power / 3);
+        body.linearVelocity = new Vector2(body.linearVelocity.x, jump_power / 3);
 
         float jump_time = 0.5f;
         for (int t = 0; t < 15; t++)
@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
             if (!input.jump || top_confined) { break; }
 
             float force = jump_power * Mathf.Pow(jump_time, 1.9f);
-            body.velocity = new Vector2(body.velocity.x, body.velocity.y + (1f/30f * force) * 10);
+            body.linearVelocity = new Vector2(body.linearVelocity.x, body.linearVelocity.y + (1f/30f * force) * 10);
 
             jump_time -= Time.fixedDeltaTime;
             await UniTask.Yield();
@@ -169,9 +169,9 @@ public class PlayerController : MonoBehaviour
         wall_right = (hit_rt.collider != null || hit_rd.collider != null);
 
         if (wall_left)
-            body.velocity = new Vector2(Mathf.Clamp(body.velocity.x, 0, 10), body.velocity.y);
+            body.linearVelocity = new Vector2(Mathf.Clamp(body.linearVelocity.x, 0, 10), body.linearVelocity.y);
         if (wall_right)
-            body.velocity = new Vector2(Mathf.Clamp(body.velocity.x, -10, 0), body.velocity.y);
+            body.linearVelocity = new Vector2(Mathf.Clamp(body.linearVelocity.x, -10, 0), body.linearVelocity.y);
     }
 
     void HazardChecker()
@@ -189,8 +189,8 @@ public class PlayerController : MonoBehaviour
         OnHurt?.Invoke();
         Immunity();             //Set immunity
 
-        Vector2 v = body.velocity;
-        body.velocity = Vector2.zero;
+        Vector2 v = body.linearVelocity;
+        body.linearVelocity = Vector2.zero;
 
         #region Time Stop
         await UniTask.DelayFrame(2);    //Allow the game to play for 2 more frames
@@ -200,7 +200,7 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         if (source == transform)
-            body.velocity = new Vector2(v.x /3 , (jump_power / 3) * 2);
+            body.linearVelocity = new Vector2(v.x /3 , (jump_power / 3) * 2);
         //else (use source as knockback)
     }
 
@@ -225,18 +225,18 @@ public class PlayerController : MonoBehaviour
     {
         freefall = false;
 
-        body.velocity = Vector2.zero;
+        body.linearVelocity = Vector2.zero;
         await FreezeControl(15);
 
         //Await a random number before jumping up again. When any input is read, then finish.
         for (int t = 0; t < 60; t++) {
             if (input.crouch || input.jump || Mathf.Abs(input.move.x) > 0.1f) return;
-            if (body.velocity.y < -0.1f) return;
+            if (body.linearVelocity.y < -0.1f) return;
             await UniTask.Yield();
         }
 
         //"Jump"
-        body.velocity = new Vector2(body.velocity.x, jump_power / 2);
+        body.linearVelocity = new Vector2(body.linearVelocity.x, jump_power / 2);
         OnJump?.Invoke();
 
     }
